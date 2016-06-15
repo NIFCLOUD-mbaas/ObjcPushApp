@@ -1,4 +1,4 @@
-# 【iOS Swift】アプリにプッシュ通知を組み込もう！
+# 【iOS Objective-C】アプリにプッシュ通知を組み込もう！
 
 ![画像1](/readme-img/001.png)
 
@@ -135,9 +135,9 @@
 
 ![画像5](/readme-img/005.png)
 
-### 2. [GitHub](https://github.com/natsumo/SwiftPushApp.git)からサンプルプロジェクトのダウンロード
+### 2. [GitHub](https://github.com/natsumo/ObjcPushApp.git)からサンプルプロジェクトのダウンロード
 
-* この画面([GitHub](https://github.com/natsumo/SwiftPushApp.git))の![画像10](/readme-img/010.png)ボタンをクリックし、さらに![画像11](/readme-img/011.PNG)ボタンをクリックしてサンプルプロジェクトをMacにダウンロードします
+* この画面([GitHub](https://github.com/natsumo/ObjcPushApp.git))の![画像10](/readme-img/010.png)ボタンをクリックし、さらに![画像11](/readme-img/011.PNG)ボタンをクリックしてサンプルプロジェクトをMacにダウンロードします
 
 ### 3. Xcodeでアプリを起動
 
@@ -147,7 +147,7 @@
 
 ### 3. APIキーの設定
 
-* `AppDelegate.swift`を編集します
+* `AppDelegate.m`を編集します
 * 先程[ニフティクラウドmobile backend](http://mb.cloud.nifty.com/)のダッシュボード上で確認したAPIキーを貼り付けます
 
 ![画像07](/readme-img/007.png)
@@ -184,9 +184,6 @@
 * lightningケーブルで④端末の登録で登録した、動作確認用iPhoneをMacにつなぎます
  * 実機ビルドが初めての場合は[こちら](http://qiita.com/natsumo/items/3f1dd0e7f5471bd4b7d9)をご覧いただき、実機ビルドの準備をお願いします
 * Xcode画面で左上で、接続したiPhoneを選び、実行ボタン（さんかくの再生マーク）をクリックします
-* __ビルド時にエラーが発生した場合の対処方法__
- * Xcodeのバージョンが古い場合`import NCMB`にエラーが発生し、上手くSDKが読み込めないことがあります
- * その場合は[【Swift】SDKの読み込みにuse framework!が使えない場合の対処方法](http://goo.gl/Z1D0K3)をご覧いただき、別の読み込み方法をお試しください
 
 ### 5.動作確認
 * インストールしたアプリを起動します
@@ -213,81 +210,79 @@
 サンプルプロジェクトに実装済みの内容のご紹介
 
 #### SDKのインポートと初期設定
-* ニフティクラウドmobile backend の[ドキュメント（クイックスタート）](http://mb.cloud.nifty.com/doc/current/introduction/quickstart_ios.html)をSwift版に書き換えたドキュメントをご用意していますので、ご活用ください
- * [SwiftでmBaaSを始めよう！(＜CocoaPods＞でuse_framewoks!を有効にした方法)](http://qiita.com/natsumo/items/57d3a4d9be16b0490965)
+* ニフティクラウドmobile backend の[ドキュメント（クイックスタート）](http://mb.cloud.nifty.com/doc/current/introduction/quickstart_ios.html)をご活用ください
 
 #### ロジック
- * `AppDelegate.swift`の`didFinishLaunchingWithOptions`メソッドにAPNsに対してデバイストークンの要求するコードを記述し、デバイストークンが取得された後に呼び出される`didRegisterForRemoteNotificationsWithDeviceToken`メソッドを追記をします
+ * `AppDelegate.m`の`didFinishLaunchingWithOptions`メソッドにAPNsに対してデバイストークンの要求するコードを記述し、デバイストークンが取得された後に呼び出される`didRegisterForRemoteNotificationsWithDeviceToken`メソッドを追記をします
  * デバイストークンの要求はiOSのバージョンによってコードが異なります
 
-```swift
+```Objc
 //
-//  AppDelegate.swift
-//  SwiftPushApp
+//  AppDelegate.m
+//  ObjcPushApp
 //
 //  Created by Natsumo Ikeda on 2016/06/09.
 //  Copyright © 2016年 NIFTY Corporation. All rights reserved.
 //
 
-import UIKit
-import NCMB
+#import "AppDelegate.h"
+#import "NCMB/NCMB.h"
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+@interface AppDelegate ()
 
-    var window: UIWindow?
-    //********** APIキーの設定 **********
-    let applicationkey = "YOUR_NCMB_APPLICATIONKEY"
-    let clientkey      = "YOUR_NCMB_CLIENTKEY"
+@end
+
+@implementation AppDelegate
 
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-        //********** SDKの初期化 **********
-        NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
-        
-        // デバイストークンの要求
-        if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1){
-            /** iOS8以上 **/
-             //通知のタイプを設定したsettingを用意
-            let type : UIUserNotificationType = [.Alert, .Badge, .Sound]
-            let setting = UIUserNotificationSettings(forTypes: type, categories: nil)
-            //通知のタイプを設定
-            application.registerUserNotificationSettings(setting)
-            //DevoceTokenを要求
-            application.registerForRemoteNotifications()
-            
-        }else{
-            /** iOS8未満 **/
-            let type : UIRemoteNotificationType = [.Alert, .Badge, .Sound]
-            UIApplication.sharedApplication().registerForRemoteNotificationTypes(type)
-        }
-        
-        
-        return true
-    }
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Override point for customization after application launch.
+    //********** APIキーの設定とSDKの初期化 **********
+    [NCMB setApplicationKey:@"YOUR_APPLICATION_KEY" clientKey:@"YOUR_CLIENT_KEY"];
     
-    // デバイストークンが取得されたら呼び出されるメソッド
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData){
-        // 端末情報を扱うNCMBInstallationのインスタンスを作成
-        let installation = NCMBInstallation.currentInstallation()
-        // デバイストークンの設定
-        installation.setDeviceTokenFromData(deviceToken)
-        // 端末情報をデータストアに登録
-        installation.saveInBackgroundWithBlock({(error: NSError!) -> Void in
-            if (error != nil){
-                // 端末情報の登録に失敗した時の処理
-                
-            }else{
-                // 端末情報の登録に成功した時の処理
-            }
-        })
+    // デバイストークンの要求
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1){
+        /** iOS8以上 **/
+        //通知のタイプを設定したsettingを用意
+        UIUserNotificationType type = UIUserNotificationTypeAlert |
+        UIUserNotificationTypeBadge |
+        UIUserNotificationTypeSound;
+        UIUserNotificationSettings *setting;
+        setting = [UIUserNotificationSettings settingsForTypes:type categories:nil];
+        //通知のタイプを設定
+        [[UIApplication sharedApplication] registerUserNotificationSettings:setting];
+        //DevoceTokenを要求
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        
+    } else {
+        /** iOS8未満 **/
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     }
+
+    
+    return YES;
 }
+
+- (void)application:didRegisterForRemoteNotificationWithDeviceToken{
+    //端末情報を扱うNCMBInstallationのインスタンスを作成
+    NCMBInstallation *installation = [NCMBInstallation currentInstallation];
+    //Device Tokenを設定
+    [installation setDeviceTokenFromData:deviceToken];
+    //端末情報をデータストアに登録
+    [installation saveInBackgroundWithBlock:^(NSError *error) {
+        if(!error){
+            //端末情報の登録が成功した場合の処理
+        } else {
+            //端末情報の登録が失敗した場合の処理
+        }
+    }];
+}
+
+@end
 ```
 
 ## 参考
+* 同じ内容の【Swift】版もご用意しています
+ * https://github.com/natsumo/SwiftPushApp
 * ニフティクラウドmobile backend の[ドキュメント（プッシュ通知）](http://mb.cloud.nifty.com/doc/current/push/basic_usage_ios.html)をSwift版に書き換えたドキュメントをご用意していますので、ご活用ください
  * [Swiftでプッシュ通知を送ろう！](http://qiita.com/natsumo/items/8ffafee05cb7eb69d815)
-* 同じ内容の【Objective-C】版もご用意しています
- * https://github.com/natsumo/ObjcPushApp
