@@ -45,8 +45,18 @@
 }
 
 - (void)application:didRegisterForRemoteNotificationWithDeviceToken{
-    
-    
+    //端末情報を扱うNCMBInstallationのインスタンスを作成
+    NCMBInstallation *installation = [NCMBInstallation currentInstallation];
+    //Device Tokenを設定
+    [installation setDeviceTokenFromData:deviceToken];
+    //端末情報をデータストアに登録
+    [installation saveInBackgroundWithBlock:^(NSError *error) {
+        if(!error){
+            //端末情報の登録が成功した場合の処理
+        } else {
+            //端末情報の登録が失敗した場合の処理
+        }
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
