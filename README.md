@@ -61,7 +61,7 @@
 * ②開発用証明書(.cer)を作成します　※初回利用時のみ
  * __注意__：開発用証明書(.cer)ファイルは既に作成したものがあれば、新しく作成しないでください！必ず既存のものを使用します。複数作成してしまうとファイル名が同じであるため区別できなくなり失敗につながる恐れがあります。
 * 「Certificates」＞「All」＞右上の「＋」をクリックして、「iOS App Development」にチェックをいれます
- 
+
 ![画像i6](/readme-img/i006.png)
 ![画像i7](/readme-img/i007.png)
 ![画像i8](/readme-img/i008.png)
@@ -112,7 +112,7 @@
 * キーチェーンアクセスを開きます
 * ⑥で作成した「APNs用証明書(.cer)」をダブルクリックしてキーチェーンアクセスを開きます
 * 三角のアイコンをクリックして、開きます
- * 重要：証明書と秘密鍵を別々にする必要があります！ 
+ * 重要：証明書と秘密鍵を別々にする必要があります！
 
 ![画像i27](/readme-img/i027.png)
 ![画像i28](/readme-img/i028.png)
@@ -161,7 +161,7 @@
  * メニューバーの「Xcode」＞「Preferences...」を選択します
  * Accounts画面が開いたら、左下の「＋」をクリックします。
  * Apple IDとPasswordを入力して、「Add」をクリックします
- 
+
  ![図F2.png](https://qiita-image-store.s3.amazonaws.com/0/112032/bef843be-5581-9e0f-aad2-1c05626d9e5d.png)
 
  * 追加されると、下図のようになります。追加した情報があっていればOKです
@@ -239,7 +239,7 @@
     // Override point for customization after application launch.
     //********** APIキーの設定とSDKの初期化 **********
     [NCMB setApplicationKey:@"YOUR_APPLICATION_KEY" clientKey:@"YOUR_CLIENT_KEY"];
-    
+
     // デバイストークンの要求
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1){
         /** iOS8以上 **/
@@ -253,17 +253,17 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:setting];
         //DevoceTokenを要求
         [[UIApplication sharedApplication] registerForRemoteNotifications];
-        
+
     } else {
         /** iOS8未満 **/
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     }
 
-    
+
     return YES;
 }
 
-- (void)application:didRegisterForRemoteNotificationWithDeviceToken{
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     //端末情報を扱うNCMBInstallationのインスタンスを作成
     NCMBInstallation *installation = [NCMBInstallation currentInstallation];
     //Device Tokenを設定
