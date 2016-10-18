@@ -208,7 +208,7 @@ __[【iOS】プッシュ通知の受信に必要な証明書の作り方(開発�
 
 ## 参考
 * 同じ内容のSwift版や、バージョン別サンプルもご用意しています
- * [Objective-C(Xcode8,iOS10以上対応)版](https://github.com/natsumo/SwiftPushApp)
+ * [Objective-C(Xcode8,iOS10以上対応)版](https://github.com/natsumo/ObjcPushApp_iOS10)
  * [Swift(Xcode7,iOS10未満対応)版](https://github.com/natsumo/SwiftPushApp)
  * [Swift(Xcode8,iOS10以上対応)版](https://github.com/natsumo/Swift3PushApp)
 * ニフティクラウドmobile backend の[ドキュメント（プッシュ通知）](http://mb.cloud.nifty.com/doc/current/push/basic_usage_ios.html)をSwift版に書き換えたドキュメントをご用意していますので、ご活用ください
