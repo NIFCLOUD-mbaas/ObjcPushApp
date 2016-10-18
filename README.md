@@ -56,7 +56,7 @@ __[【iOS】プッシュ通知の受信に必要な証明書の作り方(開発�
 ![画像5](/readme-img/005.png)
 
 ### 2. [GitHub](https://github.com/natsumo/ObjcPushApp.git)からサンプルプロジェクトのダウンロード
-* 下記リンクをクリックしてプロジェクトをダウンロードをMacにダウンロードします
+* 下記リンクをクリックしてプロジェクトをMacにダウンロードします
  * __[ObjcPushApp](https://github.com/natsumo/ObjcPushApp/archive/master.zip)__
 
 ### 3. Xcodeでアプリを起動
