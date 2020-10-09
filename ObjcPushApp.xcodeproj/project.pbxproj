@@ -133,7 +133,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = "NIFTY Corporation";
+				ORGANIZATIONNAME = "FUJITSU CLOUD TECHNOLOGIES LIMITED";
 				TargetAttributes = {
 					BD8673621D098BDB000806AD = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -343,7 +343,7 @@
 				INFOPLIST_FILE = ObjcPushApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilebackend.niftycloud.ObjcPushApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilebackend.nifcloud.ObjcPushApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -356,7 +356,7 @@
 				INFOPLIST_FILE = ObjcPushApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobilebackend.niftycloud.ObjcPushApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilebackend.nifcloud.ObjcPushApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
